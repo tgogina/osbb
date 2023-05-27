@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Додати файл:</h1>
+<div mat-dialog-content>
+  <p>Оберіть категорію та завантажте файл:</p>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Категорія</mat-label>
+    <mat-select [(ngModel)]="category" required>
+      <mat-option value="statutoryDocuments">Статутні документи</mat-option>
+      <mat-option value="minutesCoOwnersMeetings">Протоколи зборів співвласників</mat-option>
+      <mat-option value="minutesBoardMeetings">Протоколи засідань правління</mat-option>
+      <mat-option value="financialReports">Фінансові звіти</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="file-selector-wrapper">
+    <input #fileInput type="file" class="file-selector" accept=".doc,.docx" (change)="onFileSelected($event)">
+
+    <button mat-raised-button color="primary" (click)="fileInput.click()">Обрати файл...</button>
+
+    <span class="file-name">{{selectedFile?.name}}</span>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-raised-button (click)="cancel()">Скасувати</button>
+  <button mat-button mat-raised-button color="primary" [disabled]="!selectedFile || !category">
+    Зберегти документ
+  </button>
+</div>

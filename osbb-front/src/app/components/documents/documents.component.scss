@@ -1,0 +1,63 @@
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  mat-card {
+    width: 60vw;
+    margin-top: 20px;
+
+    .documents-title {
+      display: flex;
+      width: 100%;
+      position: relative;
+
+      .add-document-button {
+        margin-left: auto;
+        position: absolute;
+        right: 0;
+        bottom: -10px;
+      }
+    }
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+
+      .documents-wrapper {
+        margin-top: 15px;
+
+        ::ng-deep {
+          .mat-expansion-panel-header.mat-expanded {
+            border-bottom: 1px solid #dfdfdf;
+          }
+
+          .mat-expansion-panel-body {
+            padding: 16px 24px;
+
+            .law-document {
+              display: flex;
+              align-items: center;
+
+              &:not(:last-child) {
+                margin-bottom: 15px;
+              }
+
+              mat-icon {
+                color: #4050b5;
+                font-size: 30px;
+                height: 30px;
+                width: 30px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

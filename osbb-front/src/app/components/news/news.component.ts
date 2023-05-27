@@ -15,7 +15,7 @@ interface Article {
   };
   url: string;
   urlToImage: string;
-};
+}
 
 interface WarStatistics {
   date: Date;
