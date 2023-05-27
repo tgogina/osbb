@@ -1,0 +1,94 @@
+:host {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  mat-card {
+    width: 60vw;
+    margin-top: 20px;
+  }
+}
+
+.article {
+  margin-bottom: 30px;
+
+  .title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    display: flex;
+    align-items: start;
+
+    img {
+      width: 200px;
+    }
+
+    .details {
+      display: flex;
+      margin-left: 10px;
+
+      .detail {
+        margin-right: 20px;
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+
+        mat-icon {
+          color: #6c6c6c;
+          height: 16px;
+          width: 16px;
+          font-size: 16px;
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .description {
+      margin-left: 10px;
+      margin-top: 10px;
+
+      a {
+        padding: 0;
+        margin-top: 10px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+.stat-row {
+  display: flex;
+
+  &:last-child .stat {
+    border-bottom: unset;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 10px;
+    border-bottom: 1px solid #6f6f6f;
+
+    &:not(:last-child) {
+      border-right: 1px solid #6f6f6f;
+    }
+
+    .count {
+      font-weight: bold;
+      font-size: 16px;
+    }
+  }
+}
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.war-stats-wrapper {
+  background: linear-gradient(180deg, rgb(0 124 255 / 56%) 25%, rgba(255, 213, 0, 0.68) 76%);
+}

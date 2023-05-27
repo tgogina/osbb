@@ -1,0 +1,46 @@
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  mat-card {
+    width: 60vw;
+    margin-top: 20px;
+
+    .advertisement {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #dedede;
+      border-radius: 5px;
+      background: #fbffde;
+
+      .advertisement-title {
+        font-size: 16px;
+        font-weight: bold;
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+
+        mat-icon {
+          margin-right: 10px;
+          font-size: 35px;
+          height: 30px;
+          width: 35px;
+          margin-top: -3px;
+          color: #02a800;
+        }
+      }
+
+      .advertisement-text {
+        width: 100%;
+        display: block;
+        white-space: break-spaces;
+      }
+    }
+  }
+}

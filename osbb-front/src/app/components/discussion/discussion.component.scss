@@ -1,0 +1,45 @@
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  mat-card {
+    width: 60vw;
+    margin-top: 20px;
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    ::ng-deep .mat-form-field-infix app-tel-input {
+      position: relative;
+      top: -3px;
+    }
+  }
+}
+
+.number-prefix {
+  position: relative;
+  top: -6.4px;
+  padding-right: 1px;
+  color: #7a7a7a;
+}
+
+
+.text {
+  margin-bottom: 25px;
+}
+
+.button-wrapper {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+

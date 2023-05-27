@@ -1,0 +1,20 @@
+<mat-card>
+  <mat-card-title>Оголошення:</mat-card-title>
+
+  <div *ngIf="!advertisements" class="spinner-wrapper">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-card-content>
+    <div class="advertisement" *ngFor="let advertisement of advertisements">
+      <div class="advertisement-title">
+        <mat-icon class="material-icons-outlined">sms_failed</mat-icon>
+        {{advertisement.title}}
+      </div>
+
+      <div class="advertisement-text">
+        {{advertisement.text}}
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

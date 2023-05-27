@@ -1,0 +1,220 @@
+<mat-card class="war-stats-wrapper">
+  <mat-card-title>Загальні бойові втрати російського окупанта станом на {{warStatistics?.date | date:'dd/MM/yyyy'}}:
+  </mat-card-title>
+
+  <div *ngIf="!warStatistics" class="spinner-wrapper">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-card-content *ngIf="!!warStatistics">
+    <div class="stat-row">
+      <div class="stat">
+        <div class="title">особового складу:</div>
+        <div class="count">
+          {{warStatistics?.stats?.personnel_units}}
+
+          <span *ngIf="warStatistics?.increase?.personnel_units">
+            (+{{warStatistics.increase.personnel_units}})
+          </span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="title">танків:</div>
+        <div class="count">
+          {{warStatistics?.stats?.tanks}}
+
+          <span *ngIf="warStatistics?.increase?.tanks">
+            (+{{warStatistics.increase.tanks }})
+          </span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="title">ББМ:</div>
+        <div class="count">
+          {{warStatistics?.stats?.armoured_fighting_vehicles}}
+
+          <span *ngIf="warStatistics?.increase?.armoured_fighting_vehicles">
+            (+{{warStatistics.increase.armoured_fighting_vehicles }})
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="title">арт. систем:</div>
+        <div class="count">
+          {{warStatistics?.stats?.artillery_systems}}
+
+          <span *ngIf="warStatistics?.increase?.artillery_systems">
+            (+{{warStatistics.increase.artillery_systems }})
+          </span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="title">РСЗВ:</div>
+        <div class="count">
+          {{warStatistics?.stats?.mlrs}}
+
+          <span *ngIf="warStatistics?.increase?.mlrs">
+            (+{{warStatistics?.increase?.mlrs }})
+          </span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="title">засобів ППО:</div>
+        <div class="count">
+          {{warStatistics?.stats?.aa_warfare_systems}}
+
+          <span *ngIf="warStatistics?.increase?.aa_warfare_systems">
+            (+{{warStatistics.increase.aa_warfare_systems }})
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="title">літаків:</div>
+        <div class="count">
+          {{warStatistics?.stats?.planes}}
+
+          <span *ngIf="warStatistics?.increase?.planes">
+            (+{{warStatistics.increase.planes }})
+          </span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="title">гелікоптерів:</div>
+        <div class="count">
+          {{warStatistics?.stats?.helicopters}}
+
+          <span *ngIf="warStatistics?.increase?.helicopters">
+            (+{{warStatistics.increase.helicopters}})
+          </span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="title">автотехніки та автоцистерн:</div>
+        <div class="count">
+          {{warStatistics?.stats?.vehicles_fuel_tanks}}
+
+          <span *ngIf="warStatistics?.increase?.vehicles_fuel_tanks">
+            (+{{warStatistics.increase.vehicles_fuel_tanks }})
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="title">кораблів/катерів:</div>
+        <div class="count">
+          {{warStatistics?.stats?.warships_cutters}}
+
+          <span *ngIf="warStatistics?.increase?.warships_cutters">
+            (+{{warStatistics.increase.warships_cutters}})
+          </span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="title">БПЛА:</div>
+        <div class="count">
+          {{warStatistics?.stats?.uav_systems}}
+
+          <span *ngIf="warStatistics?.increase?.uav_systems">
+            (+{{warStatistics.increase.uav_systems}})
+          </span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="title">спец. техніки:</div>
+        <div class="count">
+          {{warStatistics?.stats?.special_military_equip}}
+
+          <span *ngIf="warStatistics?.increase?.special_military_equip">
+            (+{{warStatistics.increase.special_military_equip}})
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="title">установок ОТРК/ТРК:</div>
+        <div class="count">
+          {{warStatistics?.stats?.atgm_srbm_systems}}
+
+          <span *ngIf="warStatistics?.increase?.atgm_srbm_systems">
+            (+{{warStatistics.increase.atgm_srbm_systems}})
+          </span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="title">крилатих ракет:</div>
+        <div class="count">
+          {{warStatistics?.stats?.cruise_missiles}}
+
+          <span *ngIf="warStatistics?.increase?.cruise_missiles">
+            (+{{warStatistics.increase.cruise_missiles }})
+          </span>
+        </div>
+      </div>
+
+      <div class="stat"></div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-title>Новини:</mat-card-title>
+
+  <div *ngIf="!news" class="spinner-wrapper">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-card-content *ngIf="!!news">
+    <div class="article" *ngFor="let article of news">
+      <div class="title">{{article.title}}</div>
+
+      <div class="subtitle">
+        <img [src]="article.urlToImage" alt="Тут повинно було бути зображення 🥺">
+
+        <div>
+          <div class="details">
+            <div class="detail">
+              <mat-icon>schedule</mat-icon>
+              {{article.publishedAt | date: 'dd/MM/yyyy'}}
+            </div>
+
+            <div class="detail">
+              <mat-icon>public</mat-icon>
+              {{'Україна'}}
+            </div>
+
+            <div class="detail" *ngIf="article.author">
+              <mat-icon>person</mat-icon>
+              {{article.author}}
+            </div>
+          </div>
+
+          <div class="description">
+            {{article.description}}
+            <div>
+              <a mat-button [href]="article.url" target="_blank" color="primary">Читати далі >></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

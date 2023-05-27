@@ -1,0 +1,49 @@
+<mat-card>
+  <mat-card-title>Обговорення:</mat-card-title>
+
+  <mat-card-content [formGroup]="form">
+    <div class="text">
+      <p>
+        3 метою організації спілкування між співвласниками та правлінням; обговорення проблем, ініціатив та порядку
+        денного загальних зборів; оперативного повідомленння важливої інформації та пересилання документів у месенджері
+        Viber створена група.
+      </p>
+
+      <p>
+        Якщо ви співввласник ОСББ, але ще не приєдналися до групи - заповніть форму нижче та надішліть запит на
+        приєднання.
+      </p>
+
+      <p>3вертаємо увагу, що Ваш смартфон повинен бути підключеним до мережі Viber.</p>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Прізвище та імʼя</mat-label>
+      <input matInput required formControlName="name">
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Електронна адреса</mat-label>
+      <input matInput required formControlName="email">
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Номер квартири</mat-label>
+      <input matInput required formControlName="flatNumber">
+      <mat-icon matSuffix>apartment</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Номер телефону</mat-label>
+      <app-tel-input required formControlName="phone"></app-tel-input>
+      <mat-icon matSuffix>phone</mat-icon>
+      <div matPrefix class="number-prefix">+380&#8201;&ndash;</div>
+    </mat-form-field>
+
+    <div class="button-wrapper">
+      <button mat-raised-button color="primary" [disabled]="form.invalid">Надіслати запит</button>
+    </div>
+  </mat-card-content>
+</mat-card>

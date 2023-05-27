@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <div class="title-wrapper">
+    <img class="logo" src="../assets/logo.png">
+
+    <span>ОСББ</span>
+
+<!--    <span class="subtitle">-->
+<!--      <span>Обʼєднання співвласників багатоквартирного будинку</span>-->
+<!--      <span>ЖК Крушельницьке-С</span>-->
+<!--      <span>Львівська обл., с. Солонка</span>-->
+<!--    </span>-->
+  </div>
+
+  <nav mat-tab-nav-bar color="primary">
+    <a mat-tab-link routerLink="main" routerLinkActive="selected">Головна</a>
+    <a mat-tab-link routerLink="news" routerLinkActive="selected">Новини</a>
+    <a mat-tab-link routerLink="advertisement" routerLinkActive="selected">Оголошення</a>
+    <a mat-tab-link routerLink="discussion" routerLinkActive="selected">Обговорення</a>
+    <a mat-tab-link routerLink="documents" routerLinkActive="selected">Документи</a>
+  </nav>
+
+  <button mat-raised-button class="login-button">Вхід</button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
