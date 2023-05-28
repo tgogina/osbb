@@ -1,9 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
-import { MatDialogRef } from "@angular/material/dialog";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { UserService } from 'src/app/services/user.service';
-import { takeUntil } from 'rxjs/operators';
+import {Component, OnDestroy} from '@angular/core';
+import {Subject} from 'rxjs';
+import {MatDialogRef} from '@angular/material/dialog';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserService} from 'src/app/services/user.service';
+import {takeUntil} from 'rxjs/operators';
+import {NotificationService} from '../../services/notification.service';
 
 @Component({
   selector: 'app-add-user-modal',
@@ -24,7 +25,10 @@ export class AddUserModalComponent implements OnDestroy {
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  constructor(public dialogRef: MatDialogRef<AddUserModalComponent>, private readonly userService: UserService) {
+  constructor(
+    public readonly dialogRef: MatDialogRef<AddUserModalComponent>,
+    private readonly userService: UserService,
+    private readonly notificationService: NotificationService) {
   }
 
   ngOnDestroy(): void {
@@ -39,6 +43,9 @@ export class AddUserModalComponent implements OnDestroy {
   save(): void {
     this.userService.addUser(this.userForm.value)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(() => this.dialogRef.close(true));
+      .subscribe(() => {
+        this.dialogRef.close(true)
+        this.notificationService.openSnackBar('Користувач був успішно доданий!');
+      });
   }
 }

@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NavigationEnd, Router} from "@angular/router";
-import {filter, takeUntil} from "rxjs/operators";
-import {Subject} from "rxjs";
-import {User, UserService} from "./services/user.service";
+import {NavigationEnd, Router} from '@angular/router';
+import {filter, takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {User, UserService} from './services/user.service';
+import {NotificationService} from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  constructor(private readonly router: Router, private readonly userService: UserService) {
+  constructor(
+    private readonly router: Router,
+    private readonly userService: UserService,
+    private readonly notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -47,5 +51,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.userService.logout()
+    this.notificationService.openSnackBar('Ви успішно вийшли з системи!');
   }
 }

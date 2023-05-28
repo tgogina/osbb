@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -24,7 +24,7 @@ export class UserService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  user$: ReplaySubject<User> = new ReplaySubject<User>(1);
+  user$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   setUser(user: User): void {
     this.user$.next(user);

@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { User, UserService } from '../../services/user.service';
-import { MatDialog } from '@angular/material/dialog';
-import { takeUntil } from 'rxjs/operators';
-import { AddUserModalComponent } from '../add-user-modal/add-user-modal.component';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {User, UserService} from '../../services/user.service';
+import {MatDialog} from '@angular/material/dialog';
+import {takeUntil} from 'rxjs/operators';
+import {AddUserModalComponent} from '../add-user-modal/add-user-modal.component';
+import {NotificationService} from '../../services/notification.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-users',
@@ -17,10 +19,22 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  constructor(private readonly http: HttpClient, private readonly dialog: MatDialog, private readonly userService: UserService) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly dialog: MatDialog,
+    private readonly userService: UserService,
+    private readonly notificationService: NotificationService,
+    private readonly router: Router) {
   }
 
   ngOnInit(): void {
+    this.userService.user$.pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
+      debugger
+      if (!user) {
+        this.router.navigate(['main']);
+      }
+    });
+
     this.getUsers();
   }
 
@@ -42,7 +56,10 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   deleteUser(user: User): void {
-    this.userService.deleteUser(user.id).pipe(takeUntil(this.unsubscribe$)).subscribe(() => this.getUsers());
+    this.userService.deleteUser(user.id).pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+      this.notificationService.openSnackBar('Користувач був успішно видалений!')
+      this.getUsers()
+    });
   }
 
   private getUsers(): void {
