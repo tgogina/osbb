@@ -1,0 +1,39 @@
+import {Component, OnDestroy} from '@angular/core';
+import {Subject} from 'rxjs';
+import {MatDialogRef} from "@angular/material/dialog";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+
+@Component({
+  selector: 'app-add-user-modal',
+  templateUrl: './add-user-modal.component.html',
+  styleUrls: ['./add-user-modal.component.scss']
+})
+export class AddUserModalComponent implements OnDestroy {
+  userForm: FormGroup = new FormGroup({
+    name: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    surName: new FormControl('', Validators.required),
+    property: new FormControl('', Validators.required),
+    propertyId: new FormControl('', Validators.required),
+    registrationInfo: new FormControl(''),
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  })
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
+
+  constructor(public dialogRef: MatDialogRef<AddUserModalComponent>) {
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  cancel(): void {
+    this.dialogRef.close();
+  }
+
+  save(): void {
+  }
+}

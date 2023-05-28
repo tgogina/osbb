@@ -26,12 +26,12 @@
   </button>
 
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item *ngIf="!user?.isAdmin">
       <mat-icon>person</mat-icon>
       Моя інформація
     </button>
 
-    <button mat-menu-item *ngIf="user?.isAdmin">
+    <button mat-menu-item *ngIf="user?.isAdmin" (click)="goToUsers()">
       <mat-icon>supervisor_account</mat-icon>
       Користувачі
     </button>

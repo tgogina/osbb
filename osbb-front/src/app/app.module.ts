@@ -15,6 +15,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { PhoneInputComponent } from './components/phone-input/phone-input.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AddDocumentModalComponent } from './components/add-document-modal/add-document-modal.component';
+import { UsersComponent } from './components/users/users.component';
+import { AddUserModalComponent } from './components/add-user-modal/add-user-modal.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AddDocumentModalComponent } from './components/add-document-modal/add-d
     LoginComponent,
     DiscussionComponent,
     PhoneInputComponent,
-    AddDocumentModalComponent
+    AddDocumentModalComponent,
+    UsersComponent,
+    AddUserModalComponent
   ],
   imports: [
     BrowserModule,

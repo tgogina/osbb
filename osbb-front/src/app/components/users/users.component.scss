@@ -1,0 +1,32 @@
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  mat-card {
+    width: 90vw;
+    margin-top: 20px;
+
+    mat-card-title {
+      margin-bottom: 25px;
+
+      .users-title {
+        display: flex;
+        width: 100%;
+        position: relative;
+
+        .add-user-button {
+          margin-left: auto;
+          position: absolute;
+          right: 0;
+          bottom: -10px;
+        }
+      }
+    }
+
+    .users-table {
+      width: 100%;
+      margin-top: 15px;
+    }
+  }
+}

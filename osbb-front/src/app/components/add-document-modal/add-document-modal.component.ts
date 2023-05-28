@@ -1,16 +1,24 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-add-document-modal',
   templateUrl: './add-document-modal.component.html',
   styleUrls: ['./add-document-modal.component.scss']
 })
-export class AddDocumentModalComponent {
+export class AddDocumentModalComponent implements OnDestroy {
   selectedFile: File;
   category: string;
 
+  private unsubscribe$: Subject<void> = new Subject<void>();
+
   constructor(public dialogRef: MatDialogRef<AddDocumentModalComponent>) {
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   cancel(): void {

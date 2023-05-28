@@ -41,6 +41,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigate(['login']);
   }
 
+  goToUsers(): void {
+    this.router.navigate(['users']);
+  }
+
   logout(): void {
     this.userService.logout()
   }

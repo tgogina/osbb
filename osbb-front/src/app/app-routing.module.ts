@@ -6,6 +6,7 @@ import {DiscussionComponent} from "./components/discussion/discussion.component"
 import {DocumentsComponent} from "./components/documents/documents.component";
 import {LoginComponent} from "./components/login/login.component";
 import {NewsComponent} from "./components/news/news.component";
+import {UsersComponent} from "./components/users/users.component";
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'news',
     component: NewsComponent
+  },
+  {
+    path: 'users',
+    component: UsersComponent
   }
 ];
 

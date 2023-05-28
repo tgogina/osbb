@@ -1,0 +1,62 @@
+<h1 mat-dialog-title>Додати користувача:</h1>
+
+<div mat-dialog-content>
+  <p>Введіть усі дані та додайте нового користувача у систему:</p>
+
+  <div class="controls-wrapper" [formGroup]="userForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Імʼя</mat-label>
+      <input matInput required formControlName="name">
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Прізвище</mat-label>
+      <input matInput required formControlName="lastName">
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>По-батькові</mat-label>
+      <input matInput required formControlName="surName">
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Предмент власності</mat-label>
+      <input matInput required formControlName="property">
+      <mat-icon matSuffix>home</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Свідоцтво на право власності</mat-label>
+      <input matInput required formControlName="propertyId">
+      <mat-icon matSuffix class="material-icons-outlined">insert_drive_file</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Реєстраційна інформація</mat-label>
+      <input matInput formControlName="registrationInfo">
+      <mat-icon matSuffix class="material-icons-outlined">info</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Електронна пошта</mat-label>
+      <input matInput required formControlName="email">
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Пароль</mat-label>
+      <input matInput required formControlName="password">
+      <mat-icon matSuffix>lock</mat-icon>
+    </mat-form-field>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-raised-button (click)="cancel()">Скасувати</button>
+  <button mat-button mat-raised-button color="primary" [disabled]="userForm.invalid">
+    Зберегти користувача
+  </button>
+</div>
