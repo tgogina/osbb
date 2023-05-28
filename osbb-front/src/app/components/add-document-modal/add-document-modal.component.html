@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Додати файл:</h1>
 <div mat-dialog-content>
-  <p>Оберіть категорію та завантажте файл:</p>
+  <p>Оберіть категорію, оберіть назву документу та завантажте файл:</p>
 
   <mat-form-field appearance="outline">
     <mat-label>Категорія</mat-label>
@@ -10,6 +10,11 @@
       <mat-option value="minutesBoardMeetings">Протоколи засідань правління</mat-option>
       <mat-option value="financialReports">Фінансові звіти</mat-option>
     </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Назва документу</mat-label>
+    <input matInput [(ngModel)]="title" required>
   </mat-form-field>
 
   <div class="file-selector-wrapper">

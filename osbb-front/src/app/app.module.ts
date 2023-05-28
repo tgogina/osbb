@@ -17,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AddDocumentModalComponent } from './components/add-document-modal/add-document-modal.component';
 import { UsersComponent } from './components/users/users.component';
 import { AddUserModalComponent } from './components/add-user-modal/add-user-modal.component';
+import { AddAdvertisementModalComponent } from './components/add-advertisement-modal/add-advertisement-modal.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AddUserModalComponent } from './components/add-user-modal/add-user-moda
     PhoneInputComponent,
     AddDocumentModalComponent,
     UsersComponent,
-    AddUserModalComponent
+    AddUserModalComponent,
+    AddAdvertisementModalComponent
   ],
   imports: [
     BrowserModule,

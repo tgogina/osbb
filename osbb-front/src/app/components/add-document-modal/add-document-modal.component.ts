@@ -10,6 +10,7 @@ import {Subject} from "rxjs";
 export class AddDocumentModalComponent implements OnDestroy {
   selectedFile: File;
   category: string;
+  title: string;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 

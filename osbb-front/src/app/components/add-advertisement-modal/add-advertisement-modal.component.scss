@@ -1,0 +1,13 @@
+:host {
+  ::ng-deep {
+    .mat-dialog-actions {
+      justify-content: end;
+      margin-top: 20px;
+    }
+
+    .mat-dialog-content {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Додати оголошення:</h1>
+
+<div mat-dialog-content>
+  <p>Введіть усі дані та додайте нового користувача у систему:</p>
+
+  <div class="controls-wrapper" [formGroup]="advertisementForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Заголовок</mat-label>
+      <input matInput required formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Текст оголошення</mat-label>
+      <input matInput required formControlName="text">
+    </mat-form-field>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-raised-button (click)="cancel()">Скасувати</button>
+  <button mat-button mat-raised-button color="primary" [disabled]="advertisementForm.invalid" (click)="save()">
+    Зберегти користувача
+  </button>
+</div>

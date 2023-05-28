@@ -3,6 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {AddDocumentModalComponent} from '../add-document-modal/add-document-modal.component';
+import {UserService} from "../../services/user.service";
+import {NotificationService} from "../../services/notification.service";
+import {takeUntil} from "rxjs/operators";
 
 interface Documents {
   statutoryDocuments: Document[];
@@ -42,10 +45,28 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  constructor(private readonly http: HttpClient, private readonly dialog: MatDialog) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly dialog: MatDialog,
+    private readonly userService: UserService,
+    private readonly notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
+    this.userService.user$.pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
+      if (!!user) {
+        this.getFiles();
+      } else {
+        this.documents = {
+          statutoryDocuments: [],
+          minutesCoOwnersMeetings: [],
+          minutesBoardMeetings: [],
+          financialReports: [],
+        }
+      }
+    });
+
+    this.getFiles();
   }
 
   ngOnDestroy(): void {
@@ -60,5 +81,15 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(AddDocumentModalComponent, {
       width: '500px',
     });
+
+    dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(res => {
+      if (res) {
+        this.getFiles();
+      }
+    })
+  }
+
+  private getFiles(): void {
+
   }
 }

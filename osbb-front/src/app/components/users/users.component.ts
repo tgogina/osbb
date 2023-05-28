@@ -6,7 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {takeUntil} from 'rxjs/operators';
 import {AddUserModalComponent} from '../add-user-modal/add-user-modal.component';
 import {NotificationService} from '../../services/notification.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-users',
