@@ -29,7 +29,6 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userService.user$.pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
-      debugger
       if (!user) {
         this.router.navigate(['main']);
       }
