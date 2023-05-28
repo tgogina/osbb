@@ -41,7 +41,7 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Видалити користувача</th>
         <td mat-cell *matCellDef="let user">
-          <button mat-icon-button color="warn" (click)="deleteUser(user)">
+          <button *ngIf="!user.isAdmin" mat-icon-button color="warn" (click)="deleteUser(user)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

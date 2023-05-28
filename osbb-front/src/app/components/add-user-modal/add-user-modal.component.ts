@@ -1,7 +1,9 @@
-import {Component, OnDestroy} from '@angular/core';
-import {Subject} from 'rxjs';
-import {MatDialogRef} from "@angular/material/dialog";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { MatDialogRef } from "@angular/material/dialog";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { UserService } from 'src/app/services/user.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-user-modal',
@@ -22,7 +24,7 @@ export class AddUserModalComponent implements OnDestroy {
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  constructor(public dialogRef: MatDialogRef<AddUserModalComponent>) {
+  constructor(public dialogRef: MatDialogRef<AddUserModalComponent>, private readonly userService: UserService) {
   }
 
   ngOnDestroy(): void {
@@ -35,5 +37,8 @@ export class AddUserModalComponent implements OnDestroy {
   }
 
   save(): void {
+    this.userService.addUser(this.userForm.value)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => this.dialogRef.close(true));
   }
 }

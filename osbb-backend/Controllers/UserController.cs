@@ -38,7 +38,7 @@ namespace osbb_backend.Controllers
             }
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{userId}")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
             try

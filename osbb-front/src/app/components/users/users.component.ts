@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {User} from '../../services/user.service';
-import {MatDialog} from '@angular/material/dialog';
-import {takeUntil} from 'rxjs/operators';
-import {AddUserModalComponent} from '../add-user-modal/add-user-modal.component';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { User, UserService } from '../../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { takeUntil } from 'rxjs/operators';
+import { AddUserModalComponent } from '../add-user-modal/add-user-modal.component';
 
 @Component({
   selector: 'app-users',
@@ -17,7 +17,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  constructor(private readonly http: HttpClient, private readonly dialog: MatDialog) {
+  constructor(private readonly http: HttpClient, private readonly dialog: MatDialog, private readonly userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -34,49 +34,20 @@ export class UsersComponent implements OnInit, OnDestroy {
       width: '700px',
     });
 
-    dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
-      this.getUsers();
+    dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe((res) => {
+      if (res) {
+        this.getUsers();
+      }
     })
   }
 
   deleteUser(user: User): void {
-
+    this.userService.deleteUser(user.id).pipe(takeUntil(this.unsubscribe$)).subscribe(() => this.getUsers());
   }
 
   private getUsers(): void {
-    this.users = [{
-      id: 1,
-      name: 'Admin',
-      lastName: 'Admin',
-      surName: 'Admin',
-      property: null,
-      propertyId: null,
-      registrationInfo: null,
-      isAdmin: true,
-      email: 'admin@admin.com',
-      password: '1111'
-    }, {
-      id: 1,
-      name: 'Bla',
-      lastName: 'Bla',
-      surName: 'Bla',
-      property: null,
-      propertyId: null,
-      registrationInfo: null,
-      isAdmin: true,
-      email: 'bla@admin.com',
-      password: '1111'
-    }, {
-      id: 1,
-      name: 'Qwe',
-      lastName: 'Qwe',
-      surName: 'Qwe',
-      property: null,
-      propertyId: null,
-      registrationInfo: null,
-      isAdmin: true,
-      email: 'admin@admin.com',
-      password: '1111'
-    }]
+    this.userService.getUsers().pipe(takeUntil(this.unsubscribe$)).subscribe(users => {
+      this.users = users;
+    });
   }
 }

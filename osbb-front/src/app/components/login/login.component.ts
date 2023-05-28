@@ -1,8 +1,9 @@
-import {Component, OnDestroy} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subject} from 'rxjs';
-import {Router} from '@angular/router';
-import {UserService} from '../../services/user.service';
+import { Component, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -32,20 +33,9 @@ export class LoginComponent implements OnDestroy {
   }
 
   login(): void {
-    const dummyUser = {
-      id: 1,
-      name: 'Admin',
-      lastName: 'Admin',
-      surName: 'Admin',
-      property: null,
-      propertyId: null,
-      registrationInfo: null,
-      isAdmin: true,
-      email: 'admin@admin.com',
-      password: '1111'
-    }
-
-    this.userService.setUser(dummyUser);
-    this.router.navigate(['main']);
+    const { login, password } = this.loginForm.value;
+    this.userService.login(login, password)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => this.router.navigate(['main']));
   }
 }
