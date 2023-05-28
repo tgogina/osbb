@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  mat-card {
+    width: 400px;
+
+    mat-card-title {
+      margin-bottom: 25px;
+    }
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .buttons-wrapper {
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+
+    .login-button {
+      width: 100px;
+      margin-left: 15px;
+    }
+  }
+}

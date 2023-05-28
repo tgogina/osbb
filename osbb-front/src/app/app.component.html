@@ -1,14 +1,14 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="currentPath !== '/login'">
   <div class="title-wrapper">
     <img class="logo" src="../assets/logo.png">
 
     <span>ОСББ</span>
 
-<!--    <span class="subtitle">-->
-<!--      <span>Обʼєднання співвласників багатоквартирного будинку</span>-->
-<!--      <span>ЖК Крушельницьке-С</span>-->
-<!--      <span>Львівська обл., с. Солонка</span>-->
-<!--    </span>-->
+    <!--    <span class="subtitle">-->
+    <!--      <span>Обʼєднання співвласників багатоквартирного будинку</span>-->
+    <!--      <span>ЖК Крушельницьке-С</span>-->
+    <!--      <span>Львівська обл., с. Солонка</span>-->
+    <!--    </span>-->
   </div>
 
   <nav mat-tab-nav-bar color="primary">
@@ -19,7 +19,28 @@
     <a mat-tab-link routerLink="documents" routerLinkActive="selected">Документи</a>
   </nav>
 
-  <button mat-raised-button class="login-button">Вхід</button>
+  <button *ngIf="!user" mat-raised-button class="login-button" (click)="goToLogin()">Вхід</button>
+
+  <button *ngIf="!!user" mat-raised-button [matMenuTriggerFor]="menu">
+    {{user.name}} {{user.lastName}}
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>person</mat-icon>
+      Моя інформація
+    </button>
+
+    <button mat-menu-item *ngIf="user.isAdmin">
+      <mat-icon>supervisor_account</mat-icon>
+      Користувачі
+    </button>
+
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Вийти з системи
+    </button>
+  </mat-menu>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
