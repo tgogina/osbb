@@ -38,9 +38,8 @@ export class AddDocumentModalComponent implements OnDestroy {
       const fileToUpload = new FormData();
 
       fileToUpload.append("fileToUpload", this.selectedFile);
-      fileToUpload.append("category", this.category);
 
-      this.httpClient.post(`${this.apiUrl}api/Documents/add`, fileToUpload).subscribe(() => {
+      this.httpClient.post(`${this.apiUrl}api/Documents/add/${this.category}`, fileToUpload).subscribe(() => {
 
       });
     }

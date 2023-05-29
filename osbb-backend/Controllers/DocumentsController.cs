@@ -21,7 +21,7 @@ namespace osbb_backend.Controllers
             _repoWrapper = repoWrapper;
         }
 
-        [HttpPost("add")]
+        [HttpPost("add/{category}")]
         public async Task<IActionResult> AddDocument(IFormFile fileToUpload, string category)
         {
             using (var memoryStream = new MemoryStream())
@@ -47,26 +47,6 @@ namespace osbb_backend.Controllers
             IEnumerable<Documents> documentsFromDb = await _repoWrapper.Documents.GetAllAsync();
 
             return Ok(documentsFromDb);
-            //List<Documents> documentsToSent = new List<Documents>();
-            //HttpResponseMessage result;
-            //using (var memoryStream = new MemoryStream())
-            //{
-            //    memoryStream.Write(documentsFromDb.FirstOrDefault().Content);
-
-            //    result = new HttpResponseMessage(HttpStatusCode.OK)
-            //    {
-            //        Content = new ByteArrayContent(memoryStream.ToArray())
-            //    };
-            //}
-
-            //result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-            //{
-            //    FileName = documentsFromDb.FirstOrDefault().Name
-            //};
-
-            //result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-
-            //return result;
         }
 
         [HttpGet("download/{id}")]
