@@ -3,7 +3,8 @@
     <div class="documents-title">
       Документи:
 
-      <button mat-raised-button class="add-document-button" color="primary" (click)="addDocument()">
+      <button *ngIf="isCurrentUserAdmin" mat-raised-button class="add-document-button" color="primary"
+              (click)="addDocument()">
         Додати документ
       </button>
     </div>

@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Особиста інформація:</h1>
+
+<div mat-dialog-content>
+  <p>Вітаю, {{user.name}}! Ось Ваша інформація користувача:</p>
+
+  <div class="info-wrapper">
+    <div class="title">ПІБ:</div>
+    <div class="info">{{user.lastName}} {{user.name}} {{user.surName}}</div>
+  </div>
+
+  <div class="info-wrapper">
+    <div class="title">Електронна пошта:</div>
+    <div class="info">{{user.email}}</div>
+  </div>
+
+  <div class="info-wrapper">
+    <div class="title">Предмет власності:</div>
+    <div class="info">{{user.property}}</div>
+  </div>
+
+  <div class="info-wrapper">
+    <div class="title">Свідоцтво на право власності:</div>
+    <div class="info">{{user.propertyId}}</div>
+  </div>
+
+  <div class="info-wrapper">
+    <div class="title">Реєстраційна інформація:</div>
+    <div class="info">{{user.registrationInfo || 'Немає інформації'}}</div>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-raised-button (click)="close()">Зрозуміло</button>
+</div>

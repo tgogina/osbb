@@ -18,6 +18,7 @@ import { AddDocumentModalComponent } from './components/add-document-modal/add-d
 import { UsersComponent } from './components/users/users.component';
 import { AddUserModalComponent } from './components/add-user-modal/add-user-modal.component';
 import { AddAdvertisementModalComponent } from './components/add-advertisement-modal/add-advertisement-modal.component';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AddAdvertisementModalComponent } from './components/add-advertisement-m
     AddDocumentModalComponent,
     UsersComponent,
     AddUserModalComponent,
-    AddAdvertisementModalComponent
+    AddAdvertisementModalComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,

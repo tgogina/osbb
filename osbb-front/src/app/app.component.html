@@ -20,7 +20,7 @@
   </button>
 
   <mat-menu #menu="matMenu">
-    <button mat-menu-item *ngIf="!user?.isAdmin">
+    <button mat-menu-item *ngIf="!user?.isAdmin" (click)="openUserInfo()">
       <mat-icon>person</mat-icon>
       Моя інформація
     </button>

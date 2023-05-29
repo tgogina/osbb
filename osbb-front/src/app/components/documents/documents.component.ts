@@ -36,6 +36,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     }
   ]
 
+  isCurrentUserAdmin: boolean;
   documents: Documents = {
     statutoryDocuments: [],
     minutesCoOwnersMeetings: [],
@@ -54,6 +55,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userService.user$.pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
+      this.isCurrentUserAdmin = user?.isAdmin;
+
       if (!!user) {
         this.getFiles();
       } else {
@@ -65,8 +68,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         }
       }
     });
-
-    this.getFiles();
   }
 
   ngOnDestroy(): void {

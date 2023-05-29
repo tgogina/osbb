@@ -4,6 +4,8 @@ import {filter, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {User, UserService} from './services/user.service';
 import {NotificationService} from './services/notification.service';
+import {MatDialog} from '@angular/material/dialog';
+import {UserInfoComponent} from './components/user-info/user-info.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private readonly router: Router,
     private readonly userService: UserService,
-    private readonly notificationService: NotificationService) {
+    private readonly notificationService: NotificationService,
+    private readonly dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -52,5 +55,11 @@ export class AppComponent implements OnInit, OnDestroy {
   logout(): void {
     this.userService.logout()
     this.notificationService.openSnackBar('Ви успішно вийшли з системи!');
+  }
+
+  openUserInfo(): void {
+    this.dialog.open(UserInfoComponent, {
+      width: '400px',
+    });
   }
 }
