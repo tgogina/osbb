@@ -13,7 +13,22 @@
     margin-top: 20px;
 
     mat-card-title {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    .delete {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      ::ng-deep {
+        mat-icon {
+          font-size: 20px !important;
+          height: 20px !important;
+          width: 20px !important;
+          color: #f44336 !important;
+        }
+      }
     }
 
     .advertisement {
@@ -22,6 +37,7 @@
       border: 1px solid #dedede;
       border-radius: 5px;
       background: #fbffde;
+      position: relative;
 
       .advertisement-title {
         font-size: 16px;
@@ -46,5 +62,18 @@
         white-space: break-spaces;
       }
     }
+  }
+}
+
+.advertisements-title {
+  display: flex;
+  width: 100%;
+  position: relative;
+
+  .add-advertisement-button {
+    margin-left: auto;
+    position: absolute;
+    right: 0;
+    bottom: -10px;
   }
 }

@@ -1,7 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {takeUntil} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
+import {NotificationService} from '../../services/notification.service';
+import {MatDialog} from '@angular/material/dialog';
+import {AddAdvertisementModalComponent} from '../add-advertisement-modal/add-advertisement-modal.component';
+import {UserService} from '../../services/user.service';
 
 interface Advertisement {
+  id: number,
   title: string,
   text: string
 }
@@ -13,24 +21,54 @@ interface Advertisement {
 })
 export class AdvertisementComponent implements OnInit, OnDestroy {
   advertisements: Advertisement[] = [];
+  isCurrentUserAdmin: boolean;
 
+  private readonly apiUrl = environment.apiUrl;
   private unsubscribe$: Subject<void> = new Subject<void>();
 
+  constructor(
+    private readonly http: HttpClient,
+    private readonly notificationService: NotificationService,
+    private readonly dialog: MatDialog,
+    private readonly userService: UserService) {
+  }
+
   ngOnInit(): void {
-    this.advertisements = [
-      {
-        title: 'Збори у березні',
-        text: `УВАГА!\n\n03 березня 2023 року, середа о 20:00\nПОЗАПЛАНОВІ\nЗагальні збори власників будинку ОСББ\n\nПитання:\n1. Кошторис 2023\n2. Правління ОСББ та посада голови правління\n3. Тарифи на 2023`
-      },
-      {
-        title: 'Вчасні виплати',
-        text: 'Шановні співвласники! Утримання нашого будинку і приведення його в належний санітарний і технічний стан вимагає постійних витрат. Основне джерело коштів на проведення всіх неоюхідних робіт - це внески співввласникві будинку. Правління звертається до Вас з проханням своєчасно сплачувати внески і не допускати заборгованості. Щиро сподіваємося на Ваше розуміння.'
-      },
-    ]
+    this.userService.user$.subscribe(user => {
+      this.isCurrentUserAdmin = user?.isAdmin;
+    });
+
+    this.getAdvertisements();
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  deleteAdvertisements(advertisement: Advertisement): void {
+    this.http.delete(`${this.apiUrl}api/Announcements/delete/${advertisement.id}`).pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+      this.getAdvertisements();
+      this.notificationService.openSnackBar('Оголошення успішно видалено!');
+    })
+  }
+
+  addAdvertisement(): void {
+    const dialogRef = this.dialog.open(AddAdvertisementModalComponent, {
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(res => {
+      if (res) {
+        this.getAdvertisements();
+        this.notificationService.openSnackBar('Нове оголошення успішно стврено!')
+      }
+    })
+  }
+
+  private getAdvertisements(): void {
+    this.http.get<Advertisement[]>(`${this.apiUrl}api/Announcements/get`).pipe(takeUntil(this.unsubscribe$)).subscribe(ads => {
+      this.advertisements = ads.reverse();
+    })
   }
 }

@@ -2,7 +2,9 @@ import {Component, OnDestroy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {MatDialogRef} from '@angular/material/dialog';
-import {NotificationService} from '../../services/notification.service';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-advertisement-modal',
@@ -15,11 +17,12 @@ export class AddAdvertisementModalComponent implements OnDestroy {
     text: new FormControl('', Validators.required)
   })
 
+  private readonly apiUrl = environment.apiUrl;
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
     public readonly dialogRef: MatDialogRef<AddAdvertisementModalComponent>,
-    private readonly notificationService: NotificationService) {
+    private readonly http: HttpClient) {
   }
 
   ngOnDestroy(): void {
@@ -32,6 +35,8 @@ export class AddAdvertisementModalComponent implements OnDestroy {
   }
 
   save(): void {
-
+    this.http.post<void>(`${this.apiUrl}api/Announcements/create`, this.advertisementForm.value)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => this.dialogRef.close(true));
   }
 }

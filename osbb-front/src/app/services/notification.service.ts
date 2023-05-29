@@ -8,7 +8,7 @@ export class NotificationService {
 
   openSnackBar(message: string) {
     this._snackBar.open(message, 'Закрити', {
-      duration: 2000,
+      duration: 5000,
     });
   }
 }

@@ -37,5 +37,22 @@ namespace osbb_backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [HttpDelete("delete/{announcementId}")]
+        public async Task<IActionResult> DeleteAnnouncements(int announcementId)
+        {
+            try
+            {
+                Announcement announcement = await _repoWrapper.Announcements.GetFirstAsync(a => a.Id == announcementId);
+                _repoWrapper.Announcements.Delete(announcement);
+                await _repoWrapper.SaveAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
