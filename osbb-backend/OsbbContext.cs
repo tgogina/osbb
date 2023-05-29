@@ -11,6 +11,7 @@ namespace osbb_backend
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<Documents> Documents { get; set; }
         public OsbbContext(DbContextOptions<OsbbContext> options) : base(options)
         {
             //Database.Migrate();

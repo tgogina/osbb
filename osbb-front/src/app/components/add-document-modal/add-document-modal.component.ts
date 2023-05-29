@@ -1,6 +1,8 @@
-import {Component, OnDestroy} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
-import {Subject} from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Subject } from "rxjs";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-document-modal',
@@ -13,8 +15,10 @@ export class AddDocumentModalComponent implements OnDestroy {
   title: string;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
+  private apiUrl = environment.apiUrl;
 
-  constructor(public dialogRef: MatDialogRef<AddDocumentModalComponent>) {
+  constructor(public dialogRef: MatDialogRef<AddDocumentModalComponent>,
+    private readonly httpClient: HttpClient) {
   }
 
   ngOnDestroy(): void {
@@ -27,6 +31,19 @@ export class AddDocumentModalComponent implements OnDestroy {
   }
 
   save(): void {
+    if (this.selectedFile) {
+
+      this.title = this.selectedFile.name;
+
+      const fileToUpload = new FormData();
+
+      fileToUpload.append("fileToUpload", this.selectedFile);
+      fileToUpload.append("category", this.category);
+
+      this.httpClient.post(`${this.apiUrl}api/Documents/add`, fileToUpload).subscribe(() => {
+
+      });
+    }
   }
 
   onFileSelected(event: Event): void {

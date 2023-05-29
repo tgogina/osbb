@@ -3,8 +3,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
-using osbb_backend.Models;
-
 namespace osbb_backend
 {
     public interface IRepositoryBase<T> where T : class

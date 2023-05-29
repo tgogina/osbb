@@ -5,6 +5,7 @@ namespace osbb_backend.Repositories
     {
         IUserRepository User { get; }
         IAnnouncementsRepository Announcements { get; }
+        IDocumentsRepository Documents { get; }
 
         Task SaveAsync();
     }
@@ -14,6 +15,7 @@ namespace osbb_backend.Repositories
         private readonly OsbbContext _dbContext;
         private IUserRepository _user;
         private IAnnouncementsRepository _announcements;
+        private IDocumentsRepository _documnents;
 
         public RepositoryWrapper(OsbbContext dbContext)
         {
@@ -28,6 +30,11 @@ namespace osbb_backend.Repositories
         public IAnnouncementsRepository Announcements
         {
             get { return _announcements ??= new AnnouncementsRepository(_dbContext); }
+        }
+
+        public IDocumentsRepository Documents
+        {
+            get { return _documnents ??= new DocumentsRepository(_dbContext); }
         }
 
         public async Task SaveAsync()

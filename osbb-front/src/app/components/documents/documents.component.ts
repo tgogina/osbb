@@ -1,11 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Subject} from 'rxjs';
-import {MatDialog} from '@angular/material/dialog';
-import {AddDocumentModalComponent} from '../add-document-modal/add-document-modal.component';
-import {UserService} from "../../services/user.service";
-import {NotificationService} from "../../services/notification.service";
-import {takeUntil} from "rxjs/operators";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { AddDocumentModalComponent } from '../add-document-modal/add-document-modal.component';
+import { UserService } from "../../services/user.service";
+import { NotificationService } from "../../services/notification.service";
+import { takeUntil } from "rxjs/operators";
+import { environment } from 'src/environments/environment';
 
 interface Documents {
   statutoryDocuments: Document[];
@@ -25,6 +26,7 @@ interface Document {
   styleUrls: ['./documents.component.scss']
 })
 export class DocumentsComponent implements OnInit, OnDestroy {
+  private readonly apiUrl = environment.apiUrl;
   readonly lawDocumentLinks: { title: string, link: string }[] = [
     {
       title: 'Закон України "Про обʼєднання співвласників багатоквартирних будинків"',
@@ -75,9 +77,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  downloadFile(): void {
-  }
-
   addDocument(): void {
     const dialogRef = this.dialog.open(AddDocumentModalComponent, {
       width: '500px',
@@ -91,6 +90,16 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   private getFiles(): void {
+    this.http.get(`${this.apiUrl}api/Documents/get`).subscribe(() => {
 
+    });
+  }
+
+  downloadFile(id: number) {
+    this.http.get(`${this.apiUrl}api/Documents/download/${id}`).subscribe((data:any) => {
+      const blob = new Blob([data], { type: 'application/octet-stream' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
   }
 }

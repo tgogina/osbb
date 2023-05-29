@@ -28,7 +28,7 @@
 
 <div mat-dialog-actions>
   <button mat-button mat-raised-button (click)="cancel()">Скасувати</button>
-  <button mat-button mat-raised-button color="primary" [disabled]="!selectedFile || !category">
+  <button mat-button mat-raised-button color="primary" [disabled]="!selectedFile || !category" (click)="save()">
     Зберегти документ
   </button>
 </div>
