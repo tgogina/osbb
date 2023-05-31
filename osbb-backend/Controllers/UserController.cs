@@ -1,7 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 using osbb_backend.Models;
 using osbb_backend.Repositories;
+using osbb_backend.Services;
+
+using System.Net.Mail;
 
 namespace osbb_backend.Controllers
 {
@@ -10,10 +13,12 @@ namespace osbb_backend.Controllers
     public class UserController : ControllerBase
     {
         private readonly IRepositoryWrapper _repoWrapper;
+        private readonly IEmailService _emailService;
 
-        public UserController(IRepositoryWrapper repoWrapper)
+        public UserController(IRepositoryWrapper repoWrapper, IEmailService emailService)
         {
             _repoWrapper = repoWrapper;
+            _emailService = emailService;
         }
 
         [HttpGet("get")]
@@ -53,6 +58,23 @@ namespace osbb_backend.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost("subscribe")]
+        public async Task<IActionResult> Subscribe()
+        {
+            var reciever = new MailAddress("ishutyak2@gmail.com", "Кирило Буданов");
+
+            EmailModel model = new EmailModel
+            {
+                Message = "test",
+                Subject = "test",
+                Title = "test",
+            };
+
+            await _emailService.SendEmailAsync(model, reciever);
+
+            return Ok();
         }
     }
 }
