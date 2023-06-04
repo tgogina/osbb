@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
+using osbb_backend.Models;
 using osbb_backend.Repositories;
+using osbb_backend.Services;
 
 namespace osbb_backend
 {
@@ -42,8 +44,10 @@ namespace osbb_backend
                     Title = "Osbb API"
                 });
             });
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<IEmailService,  EmailService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
