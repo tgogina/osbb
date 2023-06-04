@@ -1,23 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { AddDocumentModalComponent } from '../add-document-modal/add-document-modal.component';
-import { UserService } from "../../services/user.service";
-import { NotificationService } from "../../services/notification.service";
-import { takeUntil } from "rxjs/operators";
-import { environment } from 'src/environments/environment';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Subject} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {AddDocumentModalComponent} from '../add-document-modal/add-document-modal.component';
+import {UserService} from '../../services/user.service';
+import {NotificationService} from '../../services/notification.service';
+import {takeUntil} from 'rxjs/operators';
+import {environment} from 'src/environments/environment';
 
 interface Documents {
-  statutoryDocuments: Document[];
-  minutesCoOwnersMeetings: Document[];
-  minutesBoardMeetings: Document[];
-  financialReports: Document[];
+  statutoryDocuments: DocumentResponse[];
+  minutesCoOwnersMeetings: DocumentResponse[];
+  minutesBoardMeetings: DocumentResponse[];
+  financialReports: DocumentResponse[];
 }
 
-interface Document {
-  title: string,
-  file: string // link / base 64 / file
+interface DocumentResponse {
+  category: string;
+  content: string;
+  id: number;
+  name: string;
 }
 
 @Component({
@@ -36,7 +38,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       title: 'Закон України "Про житолово комунальні послуги"',
       link: 'https://zakon.rada.gov.ua/laws/show/2189-19#Text'
     }
-  ]
+  ];
 
   isCurrentUserAdmin: boolean;
   documents: Documents = {
@@ -44,7 +46,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     minutesCoOwnersMeetings: [],
     minutesBoardMeetings: [],
     financialReports: [],
-  }
+  };
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -67,7 +69,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           minutesCoOwnersMeetings: [],
           minutesBoardMeetings: [],
           financialReports: [],
-        }
+        };
       }
     });
   }
@@ -85,21 +87,41 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe(res => {
       if (res) {
         this.getFiles();
+        this.notificationService.openSnackBar('Файл успішно додано!');
       }
-    })
+    });
   }
 
   private getFiles(): void {
-    this.http.get(`${this.apiUrl}api/Documents/get`).subscribe(() => {
+    this.http.get(`${this.apiUrl}api/Documents/get`)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((files: DocumentResponse[]) => {
+          this.documents = {
+            statutoryDocuments: [],
+            minutesCoOwnersMeetings: [],
+            minutesBoardMeetings: [],
+            financialReports: [],
+          };
 
-    });
+          files.forEach(f => {
+            this.documents[f.category].push(f);
+          });
+        }
+      );
   }
 
-  downloadFile(id: number) {
-    this.http.get(`${this.apiUrl}api/Documents/download/${id}`).subscribe((data:any) => {
-      const blob = new Blob([data], { type: 'application/octet-stream' });
-      const url = window.URL.createObjectURL(blob);
-      window.open(url);
-    });
+  downloadFile(doc: DocumentResponse): void {
+    this.http.get(`${this.apiUrl}api/Documents/download/${doc.id}`, { responseType: 'blob' })
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res: Blob) => {
+        const blobUrl = URL.createObjectURL(res);
+        const link = document.createElement('a');
+
+        link.href = blobUrl;
+        link.download = doc.name;
+        link.click();
+
+        URL.revokeObjectURL(blobUrl);
+      });
   }
 }

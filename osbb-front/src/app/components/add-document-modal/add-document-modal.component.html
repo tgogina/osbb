@@ -12,11 +12,6 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Назва документу</mat-label>
-    <input matInput [(ngModel)]="title" required>
-  </mat-form-field>
-
   <div class="file-selector-wrapper">
     <input #fileInput type="file" class="file-selector" accept=".doc,.docx" (change)="onFileSelected($event)">
 

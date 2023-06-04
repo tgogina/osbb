@@ -34,7 +34,12 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <p>This is the primary content of the panel.</p>
+        <div class="law-documents-wrapper">
+          <div class="law-document" *ngFor="let doc of documents.statutoryDocuments">
+            <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
+            <a mat-button class="link-button" (click)="downloadFile(doc)">{{doc.name}}</a>
+          </div>
+        </div>
       </mat-expansion-panel>
 
       <mat-expansion-panel *ngIf="documents.minutesCoOwnersMeetings.length">
@@ -44,7 +49,12 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <p>This is the primary content of the panel.</p>
+        <div class="law-documents-wrapper">
+          <div class="law-document" *ngFor="let doc of documents.minutesCoOwnersMeetings">
+            <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
+            <a mat-button class="link-button" (click)="downloadFile(doc)">{{doc.name}}</a>
+          </div>
+        </div>
       </mat-expansion-panel>
 
       <mat-expansion-panel *ngIf="documents.minutesBoardMeetings.length">
@@ -54,7 +64,12 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <p>This is the primary content of the panel.</p>
+        <div class="law-documents-wrapper">
+          <div class="law-document" *ngFor="let doc of documents.minutesBoardMeetings">
+            <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
+            <a mat-button class="link-button" (click)="downloadFile(doc)">{{doc.name}}</a>
+          </div>
+        </div>
       </mat-expansion-panel>
 
       <mat-expansion-panel *ngIf="documents.financialReports.length">
@@ -64,11 +79,13 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <p>This is the primary content of the panel.</p>
+        <div class="law-documents-wrapper">
+          <div class="law-document" *ngFor="let doc of documents.financialReports">
+            <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
+            <a mat-button class="link-button" (click)="downloadFile(doc)">{{doc.name}}</a>
+          </div>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
   </mat-card-content>
-
-  <!--todo: remove-->
-  <button mat-button  mat-raised-button class="add-document-button" color="primary" (click)="downloadFile(4)">Скачати файл</button>
 </mat-card>
