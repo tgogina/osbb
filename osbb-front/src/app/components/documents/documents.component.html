@@ -38,6 +38,9 @@
           <div class="law-document" *ngFor="let doc of documents.statutoryDocuments">
             <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
             <a mat-button class="link-button" (click)="downloadFile(doc)">{{doc.name}}</a>
+            <button *ngIf="isCurrentUserAdmin" mat-icon-button class="delete" (click)="deleteDocument(doc)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         </div>
       </mat-expansion-panel>
@@ -53,6 +56,9 @@
           <div class="law-document" *ngFor="let doc of documents.minutesCoOwnersMeetings">
             <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
             <a mat-button class="link-button" (click)="downloadFile(doc)">{{doc.name}}</a>
+            <button *ngIf="isCurrentUserAdmin" mat-icon-button class="delete" (click)="deleteDocument(doc)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         </div>
       </mat-expansion-panel>
@@ -68,6 +74,9 @@
           <div class="law-document" *ngFor="let doc of documents.minutesBoardMeetings">
             <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
             <a mat-button class="link-button" (click)="downloadFile(doc)">{{doc.name}}</a>
+            <button *ngIf="isCurrentUserAdmin" mat-icon-button class="delete" (click)="deleteDocument(doc)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         </div>
       </mat-expansion-panel>
@@ -83,6 +92,9 @@
           <div class="law-document" *ngFor="let doc of documents.financialReports">
             <mat-icon class="material-icons-outlined">insert_drive_file</mat-icon>
             <a mat-button class="link-button" (click)="downloadFile(doc)">{{doc.name}}</a>
+            <button *ngIf="isCurrentUserAdmin" mat-icon-button class="delete" (click)="deleteDocument(doc)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         </div>
       </mat-expansion-panel>

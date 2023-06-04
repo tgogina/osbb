@@ -9,7 +9,6 @@ namespace osbb_backend.Services
 {
     public interface IEmailService
     {
-        EmailModel GetEmailContent();
         Task SendEmailAsync(EmailModel message, MailAddress reciever);
     }
     public class EmailService : IEmailService
@@ -18,16 +17,6 @@ namespace osbb_backend.Services
         public EmailService(IOptions<EmailSettings> settings)
         {
             _settings = settings.Value;
-        }
-
-        public EmailModel GetEmailContent()
-        {
-            return new EmailModel
-            {
-                Title = "Osbb",
-                Subject = "test",
-                Message = "test"
-            };
         }
 
         public async Task SendEmailAsync(EmailModel message, MailAddress reciever)

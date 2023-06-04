@@ -43,7 +43,8 @@
     </mat-form-field>
 
     <div class="button-wrapper">
-      <button mat-raised-button color="primary" [disabled]="form.invalid">Надіслати запит</button>
+      <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="sendRequest()">Надіслати запит
+      </button>
     </div>
   </mat-card-content>
 </mat-card>

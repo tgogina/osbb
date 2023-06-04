@@ -56,5 +56,22 @@ namespace osbb_backend.Controllers
 
             return File(file.Content, "application/octet-stream", file.Name);
         }
+        
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteDocument(int id)
+        {
+            try
+            {
+                var file = await _repoWrapper.Documents.GetFirstAsync(f => f.Id == id);
+                _repoWrapper.Documents.Delete(file);
+                await _repoWrapper.SaveAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

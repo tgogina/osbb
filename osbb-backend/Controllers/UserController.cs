@@ -61,15 +61,17 @@ namespace osbb_backend.Controllers
         }
 
         [HttpPost("subscribe")]
-        public async Task<IActionResult> Subscribe()
+        public async Task<IActionResult> Subscribe([FromBody] Discussion discussion)
         {
-            var reciever = new MailAddress("ishutyak2@gmail.com", "Кирило Буданов");
+            var reciever = new MailAddress("bachelor.diploma2023@gmail.com", "Кирило Буданов");
 
             EmailModel model = new EmailModel
             {
-                Message = "test",
-                Subject = "test",
-                Title = "test",
+                Message = $"{discussion.Name} хоче долучитись до обговорення у Viber чаті. Контактна інформація: " +
+                          $"Імʼя: {discussion.Name}; Пошта: {discussion.Email}; Квартира: {discussion.Property}; " +
+                          $"Номер телефону: +380{discussion.Phone}.",
+                Subject = "Додати до обговорення",
+                Title = "Обговорення",
             };
 
             await _emailService.SendEmailAsync(model, reciever);

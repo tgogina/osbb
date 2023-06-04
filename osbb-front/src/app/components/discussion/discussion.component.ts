@@ -2,6 +2,10 @@ import {Component, OnDestroy} from '@angular/core';
 import {FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {Phone} from '../phone-input/phone-input.component';
+import {HttpClient} from '@angular/common/http';
+import {NotificationService} from '../../services/notification.service';
+import {environment} from '../../../environments/environment';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-discussion',
@@ -16,7 +20,11 @@ export class DiscussionComponent implements OnDestroy {
     flatNumber: new FormControl('', [Validators.required]),
   });
 
+  private readonly apiUrl = environment.apiUrl;
   private readonly unsubscribe$: Subject<void> = new Subject<void>();
+
+  constructor(private readonly http: HttpClient, private readonly notificationService: NotificationService) {
+  }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
@@ -24,6 +32,16 @@ export class DiscussionComponent implements OnDestroy {
   }
 
   sendRequest(): void {
+    const {phone, name, email, flatNumber} = this.form.value;
+
+    this.http.post(`${this.apiUrl}api/User/subscribe`, {
+      name,
+      email,
+      property: flatNumber,
+      phone: +`${phone.area}${phone.exchange}${phone.subscriber}`
+    })
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => this.notificationService.openSnackBar('Запит на додавання надіслано адміністратору!'));
   }
 
   private validatePhone(phoneControl: FormControl): ValidationErrors | null {

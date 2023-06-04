@@ -92,6 +92,30 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     });
   }
 
+  downloadFile(doc: DocumentResponse): void {
+    this.http.get(`${this.apiUrl}api/Documents/download/${doc.id}`, {responseType: 'blob'})
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res: Blob) => {
+        const blobUrl = URL.createObjectURL(res);
+        const link = document.createElement('a');
+
+        link.href = blobUrl;
+        link.download = doc.name;
+        link.click();
+
+        URL.revokeObjectURL(blobUrl);
+      });
+  }
+
+  deleteDocument(doc: DocumentResponse): void {
+    this.http.delete(`${this.apiUrl}api/Documents/delete/${doc.id}`)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.notificationService.openSnackBar('Файл було успішно видалено');
+        this.getFiles();
+      });
+  }
+
   private getFiles(): void {
     this.http.get(`${this.apiUrl}api/Documents/get`)
       .pipe(takeUntil(this.unsubscribe$))
@@ -108,20 +132,5 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           });
         }
       );
-  }
-
-  downloadFile(doc: DocumentResponse): void {
-    this.http.get(`${this.apiUrl}api/Documents/download/${doc.id}`, { responseType: 'blob' })
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((res: Blob) => {
-        const blobUrl = URL.createObjectURL(res);
-        const link = document.createElement('a');
-
-        link.href = blobUrl;
-        link.download = doc.name;
-        link.click();
-
-        URL.revokeObjectURL(blobUrl);
-      });
   }
 }
